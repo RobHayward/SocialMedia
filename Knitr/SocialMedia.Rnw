@@ -1,0 +1,59 @@
+\documentclass[12pt, a4paper, oneside]{article} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage[english]{babel}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+\begin{document}
+\title{Social Media}
+\author{Rob Hayward}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+This is the work on the Social Media Mining with R book
+
+\section{Twitter}
+The key twitter parameters are from \href{https://apps.twitter.com/app/6279206/show}{https://apps.twitter.com/app/6279206/show}
+\begin{itemize}
+\item Access level:  Read only 
+\itemm API key: d2ZQOgz8xbf8bUvDBP0j4Znkm
+\item API secret dcm3Hm40LvkWGjS42U0PI3jxKNMQeff9iE40v2uQrBLU8SSwAl
+\item Owner: Robo64
+\item Owner ID: 19733301
+\item API-only authentication https://api.twitter.com/oauth2/token
+\item Request token URL https://api.twitter.com/oauth/request_token
+\item Authorize URL https://api.twitter.com/oauth/authorize
+\item Access token URL https://api.twitter.com/oauth/access_token
+\end{itemize}
+
+<<Twitter>>=
+require("twitteR")
+my.key <- "d2ZQOgz8xbf8bUvDBP0j4Znkm"
+my.secret <- "dcm3Hm40LvkWGjS42U0PI3jxKNMQeff9iE40v2uQrBLU8SSwAl"
+cred <- OAuthFactory$new(consumerKey = my.key, consumerSecret = my.secret, 
+    requestURL = "https://api.twitter.com/oauth/request_token",
+    accessURL = "https://api.twitter.com/oauth/access_token", 
+    authURL = "https://api.twitter.com/oauth/authorize")
+cred$handshake()
+save(cred, file="twitterauthentication.Rdata")
+registerTwitterOAuth(cred) 
+bigdata <- searchTwitter("#Bigdata", n = 1500, )
+@
+This does not work. 
+
+
+
+
+\end{document}
